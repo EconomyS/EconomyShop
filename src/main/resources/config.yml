@@ -1,0 +1,5 @@
+data:
+  save-on-change: true
+language: en
+purchase:
+  tap-twice: true

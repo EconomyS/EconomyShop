@@ -1,0 +1,30 @@
+name: EconomyShop
+version: "1.0.0"
+author: onebone
+api: [1.0.0]
+main: me.onebone.economyshop.EconomyShop
+
+commands:
+  shop:
+    description: Shop management command
+    usage: /shop <create|remove> [item[:damage]] [amount] [price] [side]
+    permission: economyshop.command.shop;economyshop.command.shop.create;economyshop.command.shop.remove;
+    
+
+permissions:
+  economyshop:
+    description: Includes all permissions of EconomyShop
+    children:
+      economyshop.command:
+        description: Allows player to use all commands of EconomyShop
+        children:
+          economyshop.command.shop:
+            description: Allows player to use /shop
+            children:
+              economyshop.command.shop.create:
+                description: Allows player to use /shop create
+              economyshop.command.shop.remove:
+                description: Allows player to use /shop remove
+      economyshop.purchase:
+        description: Allows player to purchase item from shop
+        default: true

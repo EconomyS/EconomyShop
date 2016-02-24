@@ -1,0 +1,18 @@
+{
+  "invalid-side": "&4Invalid side option was given.",
+  "removed-queue": "&2Removed from shop creation queue.",
+  "added-queue": "&2Added to shop creation queue. Touch where you want to create.",
+  "removed-rm-queue": "&2Removed from shop removal queue.",
+  "added-rm-queue": "&2Added shop removal queue. Touch where you want to remove.",
+  "shop-create-failed": "&4Failed to create shop due to unknown reason.",
+  "shop-already-exist": "&4Shop already exists.",
+  "shop-created": "&2Shop was created successfully.",
+  "shop-removed": "&2Shop was removed successfully.",
+  "no-permission-buy": "&4You don't have permission to buy item.",
+  "tap-again": "&eTap again to buy &2{1}&e of &b{0}&e for &6{M}{2}&e.",
+  "no-money": "You do not have &4{M}{0}&r to buy &4{1}&r.",
+  "full-inventory": "&4You do not have inventory slot to buy item.",
+  "failed-buy": "&4Failed to buy item due to unknown reason.",
+  "bought-item": "You have bought item {1} of &b{0}&r for &6{M}{2}&r.",
+  "shop-breaking-forbidden": "&4You cannot break shops."
+}

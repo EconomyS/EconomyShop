@@ -21,6 +21,7 @@ package me.onebone.economyshop;
 import cn.nukkit.Player;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.item.Item;
+import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
 import cn.nukkit.network.protocol.AddItemEntityPacket;
 import cn.nukkit.network.protocol.RemoveEntityPacket;
@@ -56,11 +57,15 @@ public class ItemDisplayer{
 		pk.eid = this.eid;
 		pk.item = item;
 		pk.speedX = pk.speedY = pk.speedZ = 0;
-		pk.x = (float) pos.x;
+		pk.x = (float) pos.x + 0.5F;
 		pk.y = (float) pos.y;
-		pk.z = (float) pos.z;
+		pk.z = (float) pos.z + 0.5F;
 		
 		player.dataPacket(pk);
+	}
+	
+	public void spawnToAll(Level level){
+		level.getPlayers().values().forEach(this::spawnTo);
 	}
 	
 	public void despawnFrom(Player player){
@@ -68,5 +73,9 @@ public class ItemDisplayer{
 		pk.eid = this.eid;
 		
 		player.dataPacket(pk);
+	}
+	
+	public void despawnFromAll(Level level){
+		level.getPlayers().values().forEach(this::despawnFrom);
 	}
 }

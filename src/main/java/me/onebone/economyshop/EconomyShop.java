@@ -38,10 +38,13 @@ import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
+import cn.nukkit.event.entity.EntityTeleportEvent;
 import cn.nukkit.event.player.PlayerInteractEvent;
+import cn.nukkit.event.player.PlayerJoinEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
+import cn.nukkit.math.Vector3;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.TextFormat;
 import cn.nukkit.utils.Utils;
@@ -144,6 +147,14 @@ public class EconomyShop extends PluginBase implements Listener{
 			
 			Position pos = shop.getPosition();
 			shops.put(pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName(), shop);
+			
+			if(shop.getDisplayer() != null){ // shop item display option is 'none'
+				if(!displayers.containsKey(shop.getPosition().getLevel())){
+					displayers.put(shop.getPosition().getLevel(), new ArrayList<ItemDisplayer>());
+				}
+				
+				displayers.get(shop.getPosition().getLevel()).add(shop.getDisplayer());
+			}
 		});
 		
 		this.getServer().getPluginManager().registerEvents(this, this);
@@ -167,12 +178,40 @@ public class EconomyShop extends PluginBase implements Listener{
 					return true;
 				}
 				
+				int side = -1;
+				if(args.length > 4){
+					try{
+						side = Integer.parseInt(args[4]);
+					}catch(NumberFormatException e){
+						switch(args[4].toLowerCase()){
+						case "down": side = Vector3.SIDE_DOWN; break;
+						case "east": side = Vector3.SIDE_EAST; break;
+						case "north": side = Vector3.SIDE_NORTH; break;
+						case "south": side = Vector3.SIDE_SOUTH; break;
+						case "up": side = Vector3.SIDE_UP; break;
+						case "west": side = Vector3.SIDE_WEST; break;
+						case "shop": side = -1; break;
+						case "none": side = -2; break;
+						default:
+							sender.sendMessage(TextFormat.RED + "Usage: " + command.getUsage());
+							return true;
+						}
+					}
+				}
+				
+				if(side < -2 && side > 4){
+					sender.sendMessage(this.getMessage("invalid-side"));
+					return true;
+				}
+				
 				try{
 					int amount = Integer.parseInt(args[2]);
 					float price = Float.parseFloat(args[3]);
 					
+					Item item = Item.fromString(args[1]);
+					item.setCount(amount);
 					queue.put(sender.getName().toLowerCase(), new Object[]{
-						true, Item.fromString(args[1]), amount, price
+						true, item, side, price
 					});
 					
 					sender.sendMessage(this.getMessage("added-queue"));
@@ -214,10 +253,15 @@ public class EconomyShop extends PluginBase implements Listener{
 					Shop shop = new Shop(pos, (Item)info[1], (float) info[3], (int) info[2]);
 					
 					this.shops.put(key, shop);
-					if(!this.displayers.containsKey(pos.level)){
-						this.displayers.put(pos.level, new ArrayList<ItemDisplayer>());
+					
+					if(shop.getDisplayer() != null){
+						if(!this.displayers.containsKey(pos.level)){
+							this.displayers.put(pos.level, new ArrayList<ItemDisplayer>());
+						}
+						this.displayers.get(pos.level).add(shop.getDisplayer());
+					
+						shop.getDisplayer().spawnToAll(shop.getPosition().getLevel());
 					}
-					this.displayers.get(pos.level).add(shop.getDisplayer());
 					
 					queue.remove(player.getName().toLowerCase());
 					
@@ -231,8 +275,10 @@ public class EconomyShop extends PluginBase implements Listener{
 					
 					Shop shop = this.shops.get(key);
 					
-					if(this.displayers.containsKey(pos.level)){
-						this.displayers.get(pos.level).remove(shop.getDisplayer());
+					if(shop.getDisplayer() != null){
+						if(this.displayers.containsKey(pos.level)){
+							this.displayers.get(pos.level).remove(shop.getDisplayer());
+						}
 					}
 					this.shops.remove(key);
 					
@@ -280,6 +326,35 @@ public class EconomyShop extends PluginBase implements Listener{
 					}
 				}else{
 					player.sendMessage(this.getMessage("no-permission-buy"));
+				}
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onJoin(PlayerJoinEvent event){
+		Player player = event.getPlayer();
+		
+		if(this.displayers.containsKey(player.getLevel())){
+			this.displayers.get(player.getLevel()).forEach(displayer -> displayer.spawnTo(player));
+		}
+	}
+	
+	@EventHandler
+	public void onTeleport(EntityTeleportEvent event){
+		if(event.getEntity() instanceof Player){
+			Player player = (Player) event.getEntity();
+			
+			Position from = event.getFrom();
+			Position to = event.getTo();
+			
+			if(from.getLevel() != to.getLevel()){
+				if(this.displayers.containsKey(from.getLevel())){
+					this.displayers.get(from.getLevel()).forEach((displayer) -> displayer.despawnFrom(player));
+				}
+				
+				if(this.displayers.containsKey(to.getLevel())){
+					this.displayers.get(to.getLevel()).forEach((displayer) -> displayer.spawnTo(player));
 				}
 			}
 		}

@@ -34,7 +34,13 @@ public class Shop{
 		this.item = item;
 		this.price = price;
 		
-		this.displayer = new ItemDisplayer(this, pos.getSide(side), item);
+		if(side == -1){
+			this.displayer = new ItemDisplayer(this, new Position(pos.x, pos.y, pos.z, pos.level), item);
+		}else if(side == -2){
+			return;
+		}else{
+			this.displayer = new ItemDisplayer(this, pos.getSide(side), item);
+		}
 	}
 	
 	public Shop(int x, int y, int z, Level level, Item item, double price, int side){

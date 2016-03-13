@@ -199,7 +199,7 @@ public class EconomyShop extends PluginBase implements Listener{
 					}
 				}
 				
-				if(side < -2 && side > 4){
+				if(side < -2 && side > 5){
 					sender.sendMessage(this.getMessage("invalid-side"));
 					return true;
 				}

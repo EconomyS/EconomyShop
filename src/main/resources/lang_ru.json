@@ -16,7 +16,7 @@
   "bought-item": "Вы преобрели товар {1} в количестве &b{0}&r штук за &6{M}{2}&r.",
   "shop-breaking-forbidden": "&4Вы не можете ломать магазины.",
   
-  "sign-text-1": "[SHOP]",
+  "sign-text-1": "[Покупка]",
   "sign-text-2": "{M}{0}",
   "sign-text-3": "{0}",
   "sign-text-4": "{0}"

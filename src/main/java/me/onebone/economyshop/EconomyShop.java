@@ -38,6 +38,7 @@ import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
+import cn.nukkit.event.block.SignChangeEvent;
 import cn.nukkit.event.entity.EntityTeleportEvent;
 import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.event.player.PlayerJoinEvent;
@@ -337,6 +338,38 @@ public class EconomyShop extends PluginBase implements Listener{
 		
 		if(this.displayers.containsKey(player.getLevel())){
 			this.displayers.get(player.getLevel()).forEach(displayer -> displayer.spawnTo(player));
+		}
+	}
+	
+	@EventHandler
+	public void onSignChange(SignChangeEvent event){
+		String[] lines = event.getLines();
+		
+		if(lines[0].toLowerCase().equals("shop")){
+			Position pos = event.getBlock();
+			String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
+			if(!this.shops.containsKey(key)){
+				Player player = event.getPlayer();
+				
+				if(player.hasPermission("economyshop.create")){
+					float price = Float.parseFloat(lines[1]);
+					Item item = Item.fromString(lines[2]);
+					int amount = Integer.parseInt(lines[3]);
+					
+					this.provider.addShop(pos, item, price, amount);
+					
+					Shop shop = new Shop(pos, item, price, amount);
+					
+					this.shops.put(key, shop);
+					
+					event.setLine(0, this.getMessage("sign-text-1"));
+					event.setLine(1, this.getMessage("sign-text-2", new Object[]{price}));
+					event.setLine(2, this.getMessage("sign-text-3", new Object[]{item.getName()}));
+					event.setLine(3, this.getMessage("sign-text-4", new Object[]{amount}));
+					
+					player.sendMessage(this.getMessage("shop-created"));
+				}
+			}
 		}
 	}
 	

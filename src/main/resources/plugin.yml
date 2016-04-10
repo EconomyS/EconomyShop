@@ -28,3 +28,5 @@ permissions:
       economyshop.purchase:
         description: Allows player to purchase item from shop
         default: true
+      economyshop.create:
+        description: Allows player to create shop

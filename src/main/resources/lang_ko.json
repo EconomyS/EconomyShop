@@ -14,5 +14,10 @@
   "full-inventory": "&4아이템을 보관할 인벤토리가 없습니다.",
   "failed-buy": "&4알 수 없는 이유로 구매에 실패하였습니다.",
   "bought-item": "{1}개의 &b{0}&r 를 &6{M}{2}&r 에 구매하였습니다.",
-  "shop-breaking-forbidden": "&4상점을 때려 부술 수 없습니다."
+  "shop-breaking-forbidden": "&4상점을 때려 부술 수 없습니다.",
+  
+  "sign-text-1": "[상점]",
+  "sign-text-2": "{M}{0}",
+  "sign-text-3": "{0}",
+  "sign-text-4": "{0}"
 }

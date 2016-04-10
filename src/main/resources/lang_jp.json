@@ -14,5 +14,10 @@
   "full-inventory": "&4インベントリーに余裕がありません。",
   "failed-buy": "&4エラーのせいで買えませんでした。",
   "bought-item": "%2つの&b{0}&rを&6{M}{2}&rでかいました。",
-  "shop-breaking-forbidden": "&4商店は壊せません。"
+  "shop-breaking-forbidden": "&4商店は壊せません。",
+  
+  "sign-text-1": "[店]",
+  "sign-text-2": "{M}{0}",
+  "sign-text-3": "{0}",
+  "sign-text-4": "{0}"
 }

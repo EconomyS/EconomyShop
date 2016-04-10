@@ -14,5 +14,10 @@
   "full-inventory": "&4You do not have inventory slot to buy item.",
   "failed-buy": "&4Failed to buy item due to unknown reason.",
   "bought-item": "You have bought item {1} of &b{0}&r for &6{M}{2}&r.",
-  "shop-breaking-forbidden": "&4You cannot break shops."
+  "shop-breaking-forbidden": "&4You cannot break shops.",
+  
+  "sign-text-1": "[SHOP]",
+  "sign-text-2": "{M}{0}",
+  "sign-text-3": "{0}",
+  "sign-text-4": "{0}"
 }

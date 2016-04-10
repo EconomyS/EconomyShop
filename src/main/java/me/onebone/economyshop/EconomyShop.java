@@ -38,6 +38,7 @@ import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
+import cn.nukkit.event.block.BlockBreakEvent;
 import cn.nukkit.event.block.SignChangeEvent;
 import cn.nukkit.event.entity.EntityTeleportEvent;
 import cn.nukkit.event.player.PlayerInteractEvent;
@@ -352,6 +353,18 @@ public class EconomyShop extends PluginBase implements Listener{
 		
 		if(this.displayers.containsKey(player.getLevel())){
 			this.displayers.get(player.getLevel()).forEach(displayer -> displayer.spawnTo(player));
+		}
+	}
+	
+	@EventHandler
+	public void onBreak(BlockBreakEvent event){
+		Position pos = event.getBlock();
+		String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
+		
+		if(this.shops.containsKey(key)){
+			event.setCancelled();
+			
+			event.getPlayer().sendMessage(this.getMessage("shop-breaking-forbidden"));
 		}
 	}
 	

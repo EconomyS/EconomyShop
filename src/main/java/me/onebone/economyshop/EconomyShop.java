@@ -117,7 +117,8 @@ public class EconomyShop extends PluginBase implements Listener{
 	public void onEnable(){
 		this.saveDefaultConfig();
 		
-		InputStream is = this.getResource("lang_" + this.getConfig().get("langauge", "en") + ".json");
+		String name = this.getConfig().get("language", "en");
+		InputStream is = this.getResource("lang_" + name + ".json");
 		if(is == null){
 			this.getLogger().critical("Could not load language file. Changing to default.");
 			
@@ -128,6 +129,19 @@ public class EconomyShop extends PluginBase implements Listener{
 			lang = new GsonBuilder().create().fromJson(Utils.readFile(is), new TypeToken<LinkedHashMap<String, String>>(){}.getType());
 		}catch(JsonSyntaxException | IOException e){
 			this.getLogger().critical(e.getMessage());
+		}
+		
+		if(!name.equals("en")){
+			try{
+				LinkedHashMap<String, String> temp = new GsonBuilder().create().fromJson(Utils.readFile(this.getResource("lang_en.json")), new TypeToken<LinkedHashMap<String, String>>(){}.getType());
+				temp.forEach((k, v) -> {
+					if(!lang.containsKey(k)){
+						lang.put(k, v);
+					}
+				});
+			}catch(IOException e){
+				this.getLogger().critical(e.getMessage());
+			}
 		}
 		
 		api = EconomyAPI.getInstance();
@@ -352,13 +366,23 @@ public class EconomyShop extends PluginBase implements Listener{
 				Player player = event.getPlayer();
 				
 				if(player.hasPermission("economyshop.create")){
-					float price = Float.parseFloat(lines[1]);
+					float price;
+					int amount;
+					
+					try{
+						price = Float.parseFloat(lines[1]);
+						amount = Integer.parseInt(lines[3]);
+					}catch(NumberFormatException e){
+						player.sendMessage(this.getMessage("invalid-format"));
+						return;
+					}
+					
 					Item item = Item.fromString(lines[2]);
-					int amount = Integer.parseInt(lines[3]);
+					item.setCount(amount);
 					
-					this.provider.addShop(pos, item, price, amount);
+					this.provider.addShop(pos, item, price, -2);
 					
-					Shop shop = new Shop(pos, item, price, amount);
+					Shop shop = new Shop(pos, item, price, -2);
 					
 					this.shops.put(key, shop);
 					

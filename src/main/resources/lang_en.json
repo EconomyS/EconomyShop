@@ -15,6 +15,7 @@
   "failed-buy": "&4Failed to buy item due to unknown reason.",
   "bought-item": "You have bought item {1} of &b{0}&r for &6{M}{2}&r.",
   "shop-breaking-forbidden": "&4You cannot break shops.",
+  "invalid-format": "&4Please provide valid format.",
   
   "sign-text-1": "[SHOP]",
   "sign-text-2": "{M}{0}",

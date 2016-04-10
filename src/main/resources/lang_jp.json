@@ -15,6 +15,7 @@
   "failed-buy": "&4エラーのせいで買えませんでした。",
   "bought-item": "%2つの&b{0}&rを&6{M}{2}&rでかいました。",
   "shop-breaking-forbidden": "&4商店は壊せません。",
+  "invalid-format": "無効な形式が与えられました。",
   
   "sign-text-1": "[店]",
   "sign-text-2": "{M}{0}",

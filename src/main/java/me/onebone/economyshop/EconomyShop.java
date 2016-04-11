@@ -369,6 +369,7 @@ public class EconomyShop extends PluginBase implements Listener{
             }
             this.provider.removeShop(pos);
             this.shops.remove(key);
+            this.queue.remove(event.getPlayer().getName().toLowerCase());
             event.getPlayer().sendMessage(this.getMessage("shop-removed"));
         }
     }

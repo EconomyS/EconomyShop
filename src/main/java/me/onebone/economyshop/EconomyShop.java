@@ -356,23 +356,28 @@ public class EconomyShop extends PluginBase implements Listener{
 		}
 	}
 	
-	@EventHandler
-	public void onBreak(BlockBreakEvent event){
-		Position pos = event.getBlock();
-		String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
-		
-		if(this.shops.containsKey(key)){
-			event.setCancelled();
-			
-			event.getPlayer().sendMessage(this.getMessage("shop-breaking-forbidden"));
-		}
-	}
-	
-	@EventHandler
-	public void onSignChange(SignChangeEvent event){
-		String[] lines = event.getLines();
-		
-		if(lines[0].toLowerCase().equals("shop")){
+    @EventHandler
+    public void onBreak(BlockBreakEvent event) {
+        Position pos = event.getBlock();
+        String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
+
+        if (this.shops.containsKey(key)) {
+            if (!event.getPlayer().hasPermission("economyshop.break")) {
+                event.getPlayer().sendMessage(this.getMessage("shop-breaking-forbidden"));
+                event.setCancelled();
+                return;
+            }
+            this.provider.removeShop(pos);
+            this.shops.remove(key);
+            event.getPlayer().sendMessage(this.getMessage("shop-removed"));
+        }
+    }
+
+    @EventHandler
+    public void onSignChange(SignChangeEvent event) {
+        String[] lines = event.getLines();
+
+        if (lines[0].equalsIgnoreCase("shop") || lines[0].equalsIgnoreCase("[shop]")) {
 			Position pos = event.getBlock();
 			String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
 			if(!this.shops.containsKey(key)){

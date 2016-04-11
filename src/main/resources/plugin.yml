@@ -30,3 +30,5 @@ permissions:
         default: true
       economyshop.create:
         description: Allows player to create shop
+      economyshop.break:
+        description: Allows player to break shop

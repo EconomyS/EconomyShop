@@ -99,19 +99,12 @@ public class EconomyShop extends PluginBase implements Listener{
 						}
 					}catch(NumberFormatException e){}
 				}
-			}else if(c == '&'){
-				char color = lang.charAt(++i);
-				if((color >= '0' && color <= 'f') || color == 'r' || color == 'l' || color == 'o'){
-					builder.append(TextFormat.ESCAPE);
-					builder.append(color);
-					continue;
-				}
 			}
 			
 			builder.append(c);
 		}
 		
-		return builder.toString();
+		return TextFormat.colorize(builder.toString());
 	}
 	
 	@SuppressWarnings("unchecked")

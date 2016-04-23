@@ -324,7 +324,7 @@ public class EconomyShop extends PluginBase implements Listener{
 						}
 						
 						this.api.reduceMoney(player, shop.getPrice(), true);
-						player.getInventory().addItem(new Item(item.getId(), item.getDamage() item.getCount()));
+						player.getInventory().addItem(new Item(item.getId(), item.getDamage(), item.getCount()));
 						player.sendMessage(this.getMessage("bought-item", new Object[]{
 								item.getName(), item.getCount(), shop.getPrice()
 						}));

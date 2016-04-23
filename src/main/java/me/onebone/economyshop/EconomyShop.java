@@ -370,7 +370,7 @@ public class EconomyShop extends PluginBase implements Listener{
     public void onSignChange(SignChangeEvent event) {
         String[] lines = event.getLines();
 
-        if (lines[0].equalsIgnoreCase("shop") || lines[0].equalsIgnoreCase("[shop]")) {
+        if (lines[0].trim().equalsIgnoreCase("shop") || lines[0].trim().equalsIgnoreCase("[shop]")) {
 			Position pos = event.getBlock();
 			String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
 			if(!this.shops.containsKey(key)){

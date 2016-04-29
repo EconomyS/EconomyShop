@@ -99,19 +99,12 @@ public class EconomyShop extends PluginBase implements Listener{
 						}
 					}catch(NumberFormatException e){}
 				}
-			}else if(c == '&'){
-				char color = lang.charAt(++i);
-				if((color >= '0' && color <= 'f') || color == 'r' || color == 'l' || color == 'o'){
-					builder.append(TextFormat.ESCAPE);
-					builder.append(color);
-					continue;
-				}
 			}
 			
 			builder.append(c);
 		}
 		
-		return builder.toString();
+		return TextFormat.colorize(builder.toString());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -356,23 +349,28 @@ public class EconomyShop extends PluginBase implements Listener{
 		}
 	}
 	
-	@EventHandler
-	public void onBreak(BlockBreakEvent event){
-		Position pos = event.getBlock();
-		String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
-		
-		if(this.shops.containsKey(key)){
-			event.setCancelled();
-			
-			event.getPlayer().sendMessage(this.getMessage("shop-breaking-forbidden"));
-		}
-	}
-	
-	@EventHandler
-	public void onSignChange(SignChangeEvent event){
-		String[] lines = event.getLines();
-		
-		if(lines[0].toLowerCase().equals("shop")){
+    @EventHandler
+    public void onBreak(BlockBreakEvent event) {
+        Position pos = event.getBlock();
+        String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
+
+        if (this.shops.containsKey(key)) {
+            if (!event.getPlayer().hasPermission("economyshop.break")) {
+                event.getPlayer().sendMessage(this.getMessage("shop-breaking-forbidden"));
+                event.setCancelled();
+                return;
+            }
+            this.provider.removeShop(pos);
+            this.shops.remove(key);
+            event.getPlayer().sendMessage(this.getMessage("shop-removed"));
+        }
+    }
+
+    @EventHandler
+    public void onSignChange(SignChangeEvent event) {
+        String[] lines = event.getLines();
+
+        if (lines[0].equalsIgnoreCase("shop") || lines[0].equalsIgnoreCase("[shop]")) {
 			Position pos = event.getBlock();
 			String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
 			if(!this.shops.containsKey(key)){

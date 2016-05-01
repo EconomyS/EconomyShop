@@ -349,21 +349,32 @@ public class EconomyShop extends PluginBase implements Listener{
 		}
 	}
 	
-    @EventHandler
+	@EventHandler
     public void onBreak(BlockBreakEvent event) {
-        Position pos = event.getBlock();
-        String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
+    	Position pos = event.getBlock();
+    	String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
 
-        if (this.shops.containsKey(key)) {
-            if (!event.getPlayer().hasPermission("economyshop.break")) {
-                event.getPlayer().sendMessage(this.getMessage("shop-breaking-forbidden"));
-                event.setCancelled();
-                return;
-            }
-            this.provider.removeShop(pos);
-            this.shops.remove(key);
-            event.getPlayer().sendMessage(this.getMessage("shop-removed"));
-        }
+		if(this.shops.containsKey(key)){
+			if(!event.getPlayer().hasPermission("economyshop.break")) {
+				event.getPlayer().sendMessage(this.getMessage("shop-breaking-forbidden"));
+				event.setCancelled();
+				return;
+			}
+			
+			if(this.getConfig().getBoolean("destroy.break")){
+				Shop shop = this.shops.get(key);
+				
+				if(shop.getDisplayer() != null){
+					if(this.displayers.containsKey(pos.level)){
+						this.displayers.get(pos.level).remove(shop.getDisplayer());
+					}
+				}
+				this.shops.remove(key);
+				this.provider.removeShop(pos);
+				
+				event.getPlayer().sendMessage(this.getMessage("shop-removed"));
+			}
+		}
     }
 
     @EventHandler

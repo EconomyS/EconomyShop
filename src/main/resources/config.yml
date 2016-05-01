@@ -3,3 +3,5 @@ data:
 language: en
 purchase:
   tap-twice: true
+destroy:
+  break: false

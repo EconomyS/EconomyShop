@@ -25,14 +25,16 @@ import cn.nukkit.level.Position;
 
 public class Shop{
 	private Position pos;
+	private String levelName;
 	private Item item;
 	private double price;
 	private ItemDisplayer displayer;
 	
-	public Shop(Position pos, Item item, double price, int side){
+	public Shop(Position pos, String levelName, Item item, double price, int side){
 		this.pos = pos;
 		this.item = item;
 		this.price = price;
+		this.levelName = levelName;
 		
 		if(side == -1){
 			this.displayer = new ItemDisplayer(this, new Position(pos.x, pos.y, pos.z, pos.level), item);
@@ -43,12 +45,16 @@ public class Shop{
 		}
 	}
 	
-	public Shop(int x, int y, int z, Level level, Item item, double price, int side){
-		this(new Position(x, y, z, level), item, price, side);
+	public Shop(int x, int y, int z, Level level, String levelName, Item item, double price, int side){
+		this(new Position(x, y, z, level), levelName, item, price, side);
 	}
 	
 	public Shop(Server server, int x, int y, int z, String level, Item item, double price, int side){
-		this(new Position(x, y, z, server.getLevelByName(level)), item, price, side);
+		this(new Position(x, y, z, server.getLevelByName(level)), level, item, price, side);
+	}
+	
+	public String getLevelName(){
+		return this.levelName;
 	}
 	
 	public Position getPosition(){

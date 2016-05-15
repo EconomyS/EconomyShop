@@ -155,9 +155,9 @@ public class EconomyShop extends PluginBase implements Listener{
 					(int)val.get(9));
 			
 			Position pos = shop.getPosition();
-			shops.put(pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName(), shop);
+			shops.put(pos.x + ":" + pos.y + ":" + pos.z + ":" + shop.getLevelName(), shop);
 			
-			if(shop.getDisplayer() != null){ // shop item display option is 'none'
+			if(shop.getDisplayer() != null && shop.getPosition().getLevel() != null){ // shop item display option is 'none'
 				if(!displayers.containsKey(shop.getPosition().getLevel())){
 					displayers.put(shop.getPosition().getLevel(), new ArrayList<ItemDisplayer>());
 				}
@@ -259,7 +259,7 @@ public class EconomyShop extends PluginBase implements Listener{
 				if(!this.shops.containsKey(key)){
 					this.provider.addShop(pos, (Item)info[1], (float) info[3], (int) info[2]);
 					
-					Shop shop = new Shop(pos, (Item)info[1], (float) info[3], (int) info[2]);
+					Shop shop = new Shop(pos, pos.level.getFolderName(), (Item)info[1], (float) info[3], (int) info[2]);
 					
 					this.shops.put(key, shop);
 					
@@ -404,7 +404,7 @@ public class EconomyShop extends PluginBase implements Listener{
 					
 					this.provider.addShop(pos, item, price, -2);
 					
-					Shop shop = new Shop(pos, item, price, -2);
+					Shop shop = new Shop(pos, pos.level.getFolderName(), item, price, -2);
 					
 					this.shops.put(key, shop);
 					

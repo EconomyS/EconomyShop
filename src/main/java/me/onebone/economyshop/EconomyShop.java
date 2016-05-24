@@ -248,7 +248,7 @@ public class EconomyShop extends PluginBase implements Listener{
 	@EventHandler
 	public void onTouch(PlayerInteractEvent event){
 		Player player = event.getPlayer();
-		Position pos = (Position)event.getBlock();
+		Position pos = event.getBlock();
 		
 		String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
 		
@@ -296,6 +296,7 @@ public class EconomyShop extends PluginBase implements Listener{
 					player.sendMessage(this.getMessage("shop-removed"));
 				}
 			}
+			event.setCancelled();
 		}else{
 			Shop shop = this.shops.get(key);
 			
@@ -308,8 +309,8 @@ public class EconomyShop extends PluginBase implements Listener{
 						player.sendMessage(this.getMessage("tap-again", new Object[]{
 								item.getName(), item.getCount(), shop.getPrice()
 						}));
-						
 						this.taps.put(player, now);
+						event.setCancelled();
 						return;
 					}else{
 						this.taps.remove(player);
@@ -320,6 +321,7 @@ public class EconomyShop extends PluginBase implements Listener{
 					if(this.api.myMoney(player) >= shop.getPrice()){
 						if(!player.getInventory().canAddItem(item)){
 							player.sendMessage(this.getMessage("full-inventory"));
+							event.setCancelled();
 							return;
 						}
 						
@@ -336,6 +338,7 @@ public class EconomyShop extends PluginBase implements Listener{
 				}else{
 					player.sendMessage(this.getMessage("no-permission-buy"));
 				}
+				event.setCancelled();
 			}
 		}
 	}

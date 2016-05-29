@@ -253,6 +253,8 @@ public class EconomyShop extends PluginBase implements Listener{
 		String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
 		
 		if(queue.containsKey(player.getName().toLowerCase())){
+			event.setCancelled();
+			
 			Object[] info = queue.get(player.getName().toLowerCase());
 			
 			if((boolean) info[0]){
@@ -296,11 +298,12 @@ public class EconomyShop extends PluginBase implements Listener{
 					player.sendMessage(this.getMessage("shop-removed"));
 				}
 			}
-			event.setCancelled();
 		}else{
 			Shop shop = this.shops.get(key);
 			
 			if(shop != null){
+				event.setCancelled();
+				
 				Item item = shop.getItem();
 				
 				if(this.getConfig().get("purchase.tap-twice", true)){
@@ -310,7 +313,6 @@ public class EconomyShop extends PluginBase implements Listener{
 								item.getName(), item.getCount(), shop.getPrice()
 						}));
 						this.taps.put(player, now);
-						event.setCancelled();
 						return;
 					}else{
 						this.taps.remove(player);
@@ -321,7 +323,6 @@ public class EconomyShop extends PluginBase implements Listener{
 					if(this.api.myMoney(player) >= shop.getPrice()){
 						if(!player.getInventory().canAddItem(item)){
 							player.sendMessage(this.getMessage("full-inventory"));
-							event.setCancelled();
 							return;
 						}
 						
@@ -338,7 +339,6 @@ public class EconomyShop extends PluginBase implements Listener{
 				}else{
 					player.sendMessage(this.getMessage("no-permission-buy"));
 				}
-				event.setCancelled();
 			}
 		}
 	}

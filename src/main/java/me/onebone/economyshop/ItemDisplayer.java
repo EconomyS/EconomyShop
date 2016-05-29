@@ -58,7 +58,7 @@ public class ItemDisplayer{
 		pk.item = item;
 		pk.speedX = pk.speedY = pk.speedZ = 0;
 		pk.x = (float) pos.x + 0.5F;
-		pk.y = (float) pos.y;
+		pk.y = (float) pos.y + 0.5F;
 		pk.z = (float) pos.z + 0.5F;
 		
 		player.dataPacket(pk);

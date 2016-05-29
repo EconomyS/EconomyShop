@@ -40,9 +40,9 @@ import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.block.BlockBreakEvent;
 import cn.nukkit.event.block.SignChangeEvent;
-import cn.nukkit.event.entity.EntityTeleportEvent;
 import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.event.player.PlayerJoinEvent;
+import cn.nukkit.event.player.PlayerTeleportEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
@@ -423,21 +423,19 @@ public class EconomyShop extends PluginBase implements Listener{
 	}
 	
 	@EventHandler
-	public void onTeleport(EntityTeleportEvent event){
-		if(event.getEntity() instanceof Player){
-			Player player = (Player) event.getEntity();
+	public void onTeleport(PlayerTeleportEvent event){
+		Player player = event.getPlayer();
 			
-			Position from = event.getFrom();
-			Position to = event.getTo();
+		Position from = event.getFrom();
+		Position to = event.getTo();
+		
+		if(from.getLevel() != to.getLevel()){
+			if(this.displayers.containsKey(from.getLevel())){
+				this.displayers.get(from.getLevel()).forEach((displayer) -> displayer.despawnFrom(player));
+			}
 			
-			if(from.getLevel() != to.getLevel()){
-				if(this.displayers.containsKey(from.getLevel())){
-					this.displayers.get(from.getLevel()).forEach((displayer) -> displayer.despawnFrom(player));
-				}
-				
-				if(this.displayers.containsKey(to.getLevel())){
-					this.displayers.get(to.getLevel()).forEach((displayer) -> displayer.spawnTo(player));
-				}
+			if(this.displayers.containsKey(to.getLevel())){
+				this.displayers.get(to.getLevel()).forEach((displayer) -> displayer.spawnTo(player));
 			}
 		}
 	}

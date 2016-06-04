@@ -364,7 +364,7 @@ public class EconomyShop extends PluginBase implements Listener{
 				return;
 			}
 			
-			if(this.getConfig().getBoolean("destroy.break")){
+			if(this.getConfig().getBoolean("destroy.break", true)){
 				Shop shop = this.shops.get(key);
 				
 				if(shop.getDisplayer() != null){

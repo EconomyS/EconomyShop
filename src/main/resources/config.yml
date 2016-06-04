@@ -4,4 +4,4 @@ language: en
 purchase:
   tap-twice: true
 destroy:
-  break: false
+  break: true

@@ -7,7 +7,9 @@ A plugin which allows your server to create shops
 - mvn package
 
 ## Commands
-`/shop <create|remove> [item[:damage]] [amount] [price] [side]`
+/shop `<create|remove> [item[:damage]] [amount] [price] [side]`
+
+/buy `[amount]`
 
 ## Permissions
 - economyshop
@@ -15,4 +17,5 @@ A plugin which allows your server to create shops
     - economyshop.command.shop
 	  - economyshop.command.shop.create
 	  - economyshop.command.shop.remove
+	- economyshop.command.buy
   - economyshop.purchase

@@ -3,5 +3,6 @@ data:
 language: en
 purchase:
   tap-twice: true
+  enable-buy: true
 destroy:
   break: true

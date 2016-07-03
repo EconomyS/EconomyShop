@@ -9,6 +9,10 @@ commands:
     description: Shop management command
     usage: /shop <create|remove> [item[:damage]] [amount] [price] [side]
     permission: economyshop.command.shop;economyshop.command.shop.create;economyshop.command.shop.remove;
+  buy:
+    description: Buying command
+    usage: /buy [amount]
+    permission: economyshop.command.buy
     
 
 permissions:
@@ -25,6 +29,9 @@ permissions:
                 description: Allows player to use /shop create
               economyshop.command.shop.remove:
                 description: Allows player to use /shop remove
+          economyshop.command.buy:
+            description: Allows player to use /buy
+            default: true
       economyshop.purchase:
         description: Allows player to purchase item from shop
         default: true

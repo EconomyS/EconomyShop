@@ -16,6 +16,10 @@
   "bought-item": "{1}개의 &b{0}&r 를 &6{M}{2}&r 에 구매하였습니다.",
   "shop-breaking-forbidden": "&4상점을 때려 부술 수 없습니다.",
   "invalid-format": "&4잘못된 형식이 주어졌습니다.",
+  "select-shop": "&4아이템을 구매할 상점을 선택해주세요.",
+  "buying-not-enabled": "&4명령어를 통한 구매는 활성화돼있지 않습니다.",
+  "invalid-amount": "&4잘못된 개수가 주어졌습니다.",
+  "invalid-amount-multiple": "&4개수는 {0}의 배수여야 합니다.",
   
   "sign-text-1": "[상점]",
   "sign-text-2": "{M}{0}",

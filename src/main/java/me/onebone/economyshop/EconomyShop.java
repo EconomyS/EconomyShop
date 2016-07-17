@@ -525,8 +525,8 @@ public class EconomyShop extends PluginBase implements Listener{
 	private void display(Player player, Position from, Position to){
 		if(from != null && this.displayers.containsKey(to.getLevel())){
 			this.displayers.get(from.getLevel()).forEach(d -> {
-				if((int) from.x >> 4 == (int) d.getPosition().x >> 4
-					&& (int) from.z >> 4 == (int) d.getPosition().z >> 4){
+				if(Math.abs((int) from.x >> 4 - (int) d.getPosition().x >> 4) <= 1
+				&& Math.abs((int) from.z >> 4 - (int) d.getPosition().z >> 4) <= 1){
 					d.despawnFrom(player);
 				}
 			});
@@ -534,8 +534,8 @@ public class EconomyShop extends PluginBase implements Listener{
 		
 		if(this.displayers.containsKey(to.getLevel())){
 			this.displayers.get(to.getLevel()).forEach(d -> {
-				if((int) to.x >> 4 == (int) d.getPosition().x >> 4
-					&& (int) to.z >> 4 == (int) d.getPosition().z >> 4){
+				if(Math.abs((int) to.x >> 4 - (int) d.getPosition().x >> 4) <= 1
+				&& Math.abs((int) to.z >> 4 - (int) d.getPosition().z >> 4) <= 1){
 					d.spawnTo(player);
 				}
 			});

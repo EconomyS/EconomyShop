@@ -1,6 +1,8 @@
 .classpath
 .project
 .settings
+.idea
 *.bat
 target
 *.html
+*.iml

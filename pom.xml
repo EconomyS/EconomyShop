@@ -58,7 +58,6 @@
 					</execution>
 				</executions>
 				<configuration>
-					<baseDir>${project.build.directory}</baseDir>
 					<file>target/classes/plugin.yml</file>
 					<replacements>
 						<replacement>

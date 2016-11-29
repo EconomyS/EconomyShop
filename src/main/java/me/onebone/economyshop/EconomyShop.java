@@ -396,7 +396,7 @@ public class EconomyShop extends PluginBase implements Listener{
 						}
 						
 						this.api.reduceMoney(player, shop.getPrice(), true);
-						player.getInventory().addItem(item);
+						player.getInventory().addItem(new Item(item.getId(), item.getDamage(), item.getCount()));
 						player.sendMessage(this.getMessage("bought-item", new Object[]{
 								item.getName(), item.getCount(), shop.getPrice()
 						}));
@@ -454,7 +454,7 @@ public class EconomyShop extends PluginBase implements Listener{
     public void onSignChange(SignChangeEvent event) {
         String[] lines = event.getLines();
 
-        if (lines[0].equalsIgnoreCase("shop") || lines[0].equalsIgnoreCase("[shop]")) {
+        if (lines[0].trim().equalsIgnoreCase("shop") || lines[0].trim().equalsIgnoreCase("[shop]")) {
 			Position pos = event.getBlock();
 			String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
 			if(!this.shops.containsKey(key)){

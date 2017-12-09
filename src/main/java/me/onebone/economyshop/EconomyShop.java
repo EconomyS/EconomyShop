@@ -20,11 +20,7 @@ package me.onebone.economyshop;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import cn.nukkit.math.BlockFace;
 import com.google.gson.GsonBuilder;
@@ -455,7 +451,10 @@ public class EconomyShop extends PluginBase implements Listener{
     public void onSignChange(SignChangeEvent event) {
         String[] lines = event.getLines();
 
-        if (lines[0].equalsIgnoreCase("shop") || lines[0].equalsIgnoreCase("[shop]")) {
+        if (Objects.equals(lines[0].toLowerCase(),"shop") || Objects.equals(lines[0].toLowerCase(),"[shop]")) {
+        	if(lines.length !=4){
+        		return;
+			}
 			Position pos = event.getBlock();
 			String key = pos.x + ":" + pos.y + ":" + pos.z + ":" + pos.level.getFolderName();
 			if(!this.shops.containsKey(key)){
@@ -464,7 +463,7 @@ public class EconomyShop extends PluginBase implements Listener{
 				if(player.hasPermission("economyshop.create")){
 					float price;
 					int amount;
-					
+
 					try{
 						price = Float.parseFloat(lines[1]);
 						amount = Integer.parseInt(lines[3]);
@@ -472,20 +471,21 @@ public class EconomyShop extends PluginBase implements Listener{
 						player.sendMessage(this.getMessage("invalid-format"));
 						return;
 					}
-					
+
+
 					Item item = Item.fromString(lines[2]);
 					item.setCount(amount);
-					
+
 					this.provider.addShop(pos, item, price, -2);
 					
 					Shop shop = new Shop(pos, pos.level.getFolderName(), item, price, -2);
 					
 					this.shops.put(key, shop);
 					
-					event.setLine(0, this.getMessage("sign-text-1"));
-					event.setLine(1, this.getMessage("sign-text-2", new Object[]{price}));
-					event.setLine(2, this.getMessage("sign-text-3", new Object[]{item.getName()}));
-					event.setLine(3, this.getMessage("sign-text-4", new Object[]{amount}));
+					event.setLine(0, TextFormat.AQUA+this.getMessage("sign-text-1"));
+					event.setLine(1, TextFormat.YELLOW+this.getMessage("sign-text-2", new Object[]{price}));
+					event.setLine(2, TextFormat.WHITE+this.getMessage("sign-text-3", new Object[]{item.getName()}));
+					event.setLine(3, TextFormat.LIGHT_PURPLE+this.getMessage("sign-text-4", new Object[]{amount}));
 					
 					player.sendMessage(this.getMessage("shop-created"));
 				}

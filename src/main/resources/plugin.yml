@@ -1,5 +1,5 @@
 name: EconomyShop
-version: @VERSION@
+version: 1.0.1
 author: onebone
 api: [1.0.0]
 main: me.onebone.economyshop.EconomyShop

@@ -1,0 +1,28 @@
+{
+  "invalid-side": "&4无效的方向选项.",
+  "removed-queue": "&2已从商店创建队列中移除.",
+  "added-queue": "&2已添加到商店创建队列. 请点击你要创建商店的地方.",
+  "removed-rm-queue": "&2已从商店移除队列中移除.",
+  "added-rm-queue": "&2已添加到商店移除队列. 请点击你需要移除商店的地方.",
+  "shop-create-failed": "&4创建商店失败,未知原因.",
+  "shop-already-exist": "&4商店已存在.",
+  "shop-created": "&2商店创建成功.",
+  "shop-removed": "&2商店移除成功.",
+  "no-permission-buy": "&4你没有购买物品的权限.",
+  "tap-again": "&e请再次点击以购买售价为 &6{M}{2}&e 的 &b{0}&e X&2{1}&e .",
+  "no-money": "你没有 &4{M}{0}&r 无法购买 &4{1}&r.",
+  "full-inventory": "&4库存已满,无法购买,请清理库存之后再试.",
+  "failed-buy": "&4由于未知原因,本次购买失败.",
+  "bought-item": "你已经花费 &6{M}{2}&r 购买了 &b{0}&rX{1}.",
+  "shop-breaking-forbidden": "&4你无法破坏出售商店.",
+  "invalid-format": "&4请提供有效的格式.",
+  "select-shop": "&4请选择商店以进行购买.",
+  "buying-not-enabled": "&4使用命令购买物品暂时不可用.",
+  "invalid-amount": "&4你输入了无效的数量.",
+  "invalid-amount-multiple": "&4给出的数量必须是 {0} 的倍数.",
+  
+  "sign-text-1": "[出售商店]",
+  "sign-text-2": "价格 : {M}{0}",
+  "sign-text-3": "物品 : {0}",
+  "sign-text-4": "数量 : {0}"
+}

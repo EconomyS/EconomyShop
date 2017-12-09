@@ -26,6 +26,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.nukkit.math.BlockFace;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -194,12 +195,12 @@ public class EconomyShop extends PluginBase implements Listener{
 						side = Integer.parseInt(args[4]);
 					}catch(NumberFormatException e){
 						switch(args[4].toLowerCase()){
-						case "down": side = Vector3.SIDE_DOWN; break;
-						case "east": side = Vector3.SIDE_EAST; break;
-						case "north": side = Vector3.SIDE_NORTH; break;
-						case "south": side = Vector3.SIDE_SOUTH; break;
-						case "up": side = Vector3.SIDE_UP; break;
-						case "west": side = Vector3.SIDE_WEST; break;
+						case "down": side = BlockFace.DOWN.getIndex(); break;
+						case "east": side = BlockFace.EAST.getIndex(); break;
+						case "north": side = BlockFace.NORTH.getIndex(); break;
+						case "south": side = BlockFace.SOUTH.getIndex(); break;
+						case "up": side = BlockFace.UP.getIndex(); break;
+						case "west": side = BlockFace.WEST.getIndex(); break;
 						case "shop": side = -1; break;
 						case "none": side = -2; break;
 						default:
@@ -309,7 +310,7 @@ public class EconomyShop extends PluginBase implements Listener{
 	
 	@EventHandler
 	public void onTouch(PlayerInteractEvent event){
-		if(event.getAction() == PlayerInteractEvent.LEFT_CLICK_AIR || event.getAction() == PlayerInteractEvent.RIGHT_CLICK_AIR) return;
+		if(event.getAction() == PlayerInteractEvent.Action.LEFT_CLICK_AIR || event.getAction() == PlayerInteractEvent.Action.RIGHT_CLICK_AIR) return;
 		
 		Player player = event.getPlayer();
 		Position pos = event.getBlock();

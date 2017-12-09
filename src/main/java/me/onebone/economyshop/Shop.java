@@ -22,6 +22,7 @@ import cn.nukkit.Server;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
+import cn.nukkit.math.BlockFace;
 
 public class Shop{
 	private Position pos;
@@ -41,7 +42,7 @@ public class Shop{
 		}else if(side == -2){
 			return;
 		}else{
-			this.displayer = new ItemDisplayer(this, pos.getSide(side), item);
+			this.displayer = new ItemDisplayer(this, pos.getSide(BlockFace.fromIndex(side)), item);
 		}
 	}
 	
